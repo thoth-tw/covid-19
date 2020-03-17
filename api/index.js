@@ -9,8 +9,10 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const db = require("quick.db");
 
+require("dotenv").config();
+
 // get all
-(async function getAll() {
+async function getAll() {
   let response;
   try {
     response = await axios.get("https://www.worldometers.info/coronavirus/");
@@ -40,13 +42,13 @@ const db = require("quick.db");
   });
   result.updated = Date.now();
   db.set("all", result);
-  console.log("Updated The Cases", result);
+  console.log("Summary Updated");
 
-  setTimeout(getAll, 300000);
-})();
+  setTimeout(getAll, 5 * 60 * 1000); // 5 mins
+}
 
 // get countries
-(async function getCountries() {
+async function getCountries() {
   let response;
   try {
     response = await axios.get("https://www.worldometers.info/coronavirus/");
@@ -96,7 +98,9 @@ const db = require("quick.db");
         // parse with hyperlink
         country = cell.children[0].next.children[0].data || "";
       }
-      result.push({ country: country.trim() || "" });
+      result.push({
+        country: country.trim() || ""
+      });
     }
     // get cases
     if (i % totalColumns === casesColIndex) {
@@ -148,9 +152,38 @@ const db = require("quick.db");
     }
   }
   db.set("countries", result);
-  console.log("Updated The Countries", result);
-  setTimeout(getCountries, 300000);
-})();
+  console.log("Countries Updated");
+  setTimeout(getCountries, 5 * 60 * 1000); // 5 mins
+}
+
+async function getNews() {
+  const NEWS_API_KEY = process.env.NEWS_API_KEY;
+  const news = async query => {
+    const q = encodeURIComponent(query);
+    const url = `http://newsapi.org/v2/top-headlines?q=${q}&country=tw&apiKey=${NEWS_API_KEY}`;
+    const res = await axios.get(url);
+    return res.data;
+  };
+
+  const combined = await Promise.all([news("疫情"), news("肺炎")]);
+  const h = {};
+  combined
+    .flat()
+    .map(d => d.articles)
+    .flat()
+    .forEach(obj => {
+      h[obj.url] = obj;
+    });
+  const result = Object.values(h);
+
+  db.set("news", result);
+  console.log("News Updated");
+  setTimeout(getNews, 3 * 3600 * 1000); // 3 hours
+}
+
+getAll();
+getCountries();
+getNews();
 
 const listener = app.listen(5001, function() {
   console.log("Your app is listening on port " + listener.address().port);
@@ -159,12 +192,12 @@ const listener = app.listen(5001, function() {
 app.use(cors());
 
 app.get("/all/", async function(req, res) {
-  let all = await db.fetch("all");
-  res.send(all);
+  const all = await db.fetch("all");
+  res.json(all);
 });
 
 app.get("/countries/", async function(req, res) {
-  let countries = await db.fetch("countries");
+  const countries = await db.fetch("countries");
   if (req.query["sort"]) {
     try {
       const sortProp = req.query["sort"];
@@ -182,5 +215,10 @@ app.get("/countries/", async function(req, res) {
       return;
     }
   }
-  res.send(countries);
+  res.json(countries);
+});
+
+app.get("/news/", async function(req, res) {
+  let news = await db.fetch("news");
+  res.json(news);
 });
