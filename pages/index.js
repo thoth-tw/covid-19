@@ -10,7 +10,7 @@ export default function Index({ data }) {
 }
 
 Index.getInitialProps = async function() {
-  const res = await fetch("http://localhost:5001/all/");
+  const res = await fetch("http://localhost:5001/");
   const data = await res.json();
 
   console.log(data);

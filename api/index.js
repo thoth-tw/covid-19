@@ -12,7 +12,7 @@ const db = require("quick.db");
 require("dotenv").config();
 
 // get all
-async function getAll() {
+async function getWorld() {
   let response;
   try {
     response = await axios.get("https://www.worldometers.info/coronavirus/");
@@ -41,10 +41,10 @@ async function getAll() {
     }
   });
   result.updated = Date.now();
-  db.set("all", result);
+  db.set("world", result);
   console.log("Summary Updated");
 
-  setTimeout(getAll, 5 * 60 * 1000); // 5 mins
+  setTimeout(getWorld, 5 * 60 * 1000); // 5 mins
 }
 
 // get countries
@@ -181,7 +181,7 @@ async function getNews() {
   setTimeout(getNews, 3 * 3600 * 1000); // 3 hours
 }
 
-getAll();
+getWorld();
 getCountries();
 getNews();
 
@@ -191,34 +191,30 @@ const listener = app.listen(5001, function() {
 
 app.use(cors());
 
-app.get("/all/", async function(req, res) {
-  const all = await db.fetch("all");
-  res.json(all);
+app.get("/", async function(req, res) {
+  const [world, countries, news] = await Promise.all([
+    db.fetch("world"),
+    db.fetch("countries"),
+    db.fetch("news")
+  ]);
+  res.json({
+    world,
+    countries,
+    news
+  });
+});
+
+app.get("/world/", async function(req, res) {
+  const world = await db.fetch("world");
+  res.json(world);
 });
 
 app.get("/countries/", async function(req, res) {
   const countries = await db.fetch("countries");
-  if (req.query["sort"]) {
-    try {
-      const sortProp = req.query["sort"];
-      countries.sort((a, b) => {
-        if (a[sortProp] < b[sortProp]) {
-          return -1;
-        } else if (a[sortProp] > b[sortProp]) {
-          return 1;
-        }
-        return 0;
-      });
-    } catch (e) {
-      console.error("ERROR while sorting", e);
-      res.status(422).send(e);
-      return;
-    }
-  }
   res.json(countries);
 });
 
 app.get("/news/", async function(req, res) {
-  let news = await db.fetch("news");
+  const news = await db.fetch("news");
   res.json(news);
 });
