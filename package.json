@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "api": "yarn --cwd api start",
+    "api:dev": "yarn --cwd api dev"
   },
   "keywords": [],
   "author": "",
