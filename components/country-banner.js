@@ -2,20 +2,23 @@ import Card from "./card";
 
 import { commaNum } from "../utils";
 
-export default function World({ world }) {
+export default function CountryBanner({ country }) {
   return (
     <Card>
-      <div className="world">
-        <div className="title">Coronavirus</div>
-        <div className="highlight">{commaNum(world.cases)}</div>
+      <div className="country">
+        <div className="title">{country.country}</div>
+        <div className="highlight-wrap">
+          <div className="highlight">{commaNum(country.cases)}</div>
+          <div> +{country.todayCases} (今日)</div>
+        </div>
         <div className="side">
           <div>
-            <div className="val">{commaNum(world.deaths)}</div>
             <div className="label">死亡</div>
+            <div className="val">{commaNum(country.deaths)}</div>
           </div>
           <div>
-            <div className="val">{commaNum(world.recovered)}</div>
             <div className="label">康復</div>
+            <div className="val">{commaNum(country.recovered)}</div>
           </div>
         </div>
       </div>
@@ -24,10 +27,18 @@ export default function World({ world }) {
           font-size: 24px;
           color: #a0a0a0;
         }
+        .highlight-wrap {
+          display: flex;
+          align-items: center;
+          font-size: 16px;
+          color: red;
+        }
         .highlight {
+          color: black;
           font-size: 60px;
           font-weight: 300;
           line-height: 60px;
+          margin-right: 5px;
         }
         .label {
           color: #a0a0a0;
