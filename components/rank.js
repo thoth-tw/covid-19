@@ -36,14 +36,14 @@ export default function Rank({ countries }) {
           height: 585px;
         }
         .header {
-          padding-left: 10px;
+          padding-left: 4px;
           font-size: 24px;
           color: #a0a0a0;
           margin-bottom: 5px;
         }
         .country {
           display: flex;
-          padding: 4px 15px;
+          padding: 4px;
           align-items: center;
           border-bottom: 1px solid #f5f5f5;
         }

@@ -49,13 +49,6 @@ export default function News({ news }) {
           color: #585858;
           letter-spacing: 1px;
         }
-        a {
-          color: orange;
-        }
-        a:hover {
-          color: red;
-          transition: all 0.3s;
-        }
       `}</style>
     </Card>
   );
