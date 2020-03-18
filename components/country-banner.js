@@ -32,6 +32,7 @@ export default function CountryBanner({ country }) {
           align-items: center;
           font-size: 16px;
           color: red;
+          flex-wrap: wrap;
         }
         .highlight {
           color: black;

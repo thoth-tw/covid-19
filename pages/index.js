@@ -29,7 +29,9 @@ export default function Index({ data }) {
               <Rank countries={data.countries} />
             </div>
           </div>
-          <News news={data.news} />
+          <div className="news">
+            <News news={data.news} />
+          </div>
         </div>
       </div>
       <style jsx global>{`
@@ -60,7 +62,7 @@ export default function Index({ data }) {
           display: flex;
         }
         .left {
-          flex: 1;
+          flex: 0 0 350px;
         }
         .left > * {
           margin-right: 20px;
@@ -68,6 +70,18 @@ export default function Index({ data }) {
         }
         .right {
           flex: 1;
+        }
+        .news {
+          margin-top: 20px;
+        }
+        @media (max-width: 820px) {
+          .stats {
+            flex-direction: column;
+          }
+
+          .left > * {
+            margin-right: 0;
+          }
         }
       `}</style>
     </>

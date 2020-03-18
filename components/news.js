@@ -8,6 +8,11 @@ export default function News({ news }) {
           <div>{n.title}</div>
         ))}
       </div>
+      <style jsx>{`
+        .news {
+          //   margin-top: 20px;
+        }
+      `}</style>
     </Card>
   );
 }
