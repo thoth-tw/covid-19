@@ -42,6 +42,7 @@ export default function Index({ data }) {
         body {
           background: #fcfcfc;
           width: 100%;
+          margin: 0;
           font-family: "Poppins", system-ui, "Helvetica Neue", Helvetica, Arial,
             sans-serif;
 

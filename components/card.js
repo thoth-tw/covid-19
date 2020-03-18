@@ -8,6 +8,11 @@ export default function Card({ children }) {
           background: white;
           padding: 20px;
         }
+        @media (max-width: 500px) {
+          .card {
+            margin: 0 -20px;
+          }
+        }
       `}</style>
     </>
   );
