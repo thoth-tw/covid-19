@@ -8,24 +8,31 @@ import News from "../components/news";
 export default function Index({ data }) {
   const taiwan = data.countries.find(c => c.country === "Taiwan");
   return (
-    <div>
-      <p>Covid-19</p>
-      <div className="stats">
-        <div className="left">
-          <World world={data.world} />
-          <Taiwan taiwan={taiwan} />
+    <>
+      <div className="container">
+        <p>Covid-19</p>
+        <div className="stats">
+          <div className="left">
+            <World world={data.world} />
+            <Taiwan taiwan={taiwan} />
+          </div>
+          <div className="right">
+            <Rank countries={data.countries} />
+          </div>
         </div>
-        <div className="right">
-          <Rank countries={data.countries} />
-        </div>
+        <News news={data.news} />
       </div>
-      <News news={data.news} />
       <style jsx global>{`
         body {
           background: #fcfcfc;
+          width: 100%;
         }
       `}</style>
       <style jsx>{`
+        .container {
+          max-width: 1000px;
+          margin: 0 auto;
+        }
         .stats {
           display: flex;
         }
@@ -36,7 +43,7 @@ export default function Index({ data }) {
           flex: 1;
         }
       `}</style>
-    </div>
+    </>
   );
 }
 
