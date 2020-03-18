@@ -14,15 +14,18 @@ export default function Rank({ countries }) {
                 {idx + 1}. {c.country}
               </div>
               <div className="stats">
-                <div>
+                <div className="num">
                   <div className="label">確診</div>
-                  <div>{commaNum(c.cases)}</div>
+                  <div className="confirmed">
+                    <span>{commaNum(c.cases)}</span>
+                    <span className="daily"> +{commaNum(c.todayCases)}</span>
+                  </div>
                 </div>
-                <div>
+                <div className="num">
                   <div className="label">死亡</div>
                   <div>{commaNum(c.deaths)}</div>
                 </div>
-                <div>
+                <div className="num">
                   <div className="label">康復</div>
                   <div>{commaNum(c.recovered)}</div>
                 </div>
@@ -54,10 +57,26 @@ export default function Rank({ countries }) {
           margin-left: auto;
           display: flex;
         }
-        .stats > * {
+
+        .stats .num {
           width: 60px;
           margin-left: 20px;
           text-align: right;
+        }
+
+        .stats > .num:first-child {
+          width: auto;
+        }
+        .confirmed {
+          display: flex;
+          align-items: center;
+        }
+        .daily {
+          margin-left: 3px;
+          color: red;
+          font-size: 12px;
+          font-weight: 500;
+          line-height: 25px;
         }
         .label {
           color: #a0a0a0;
