@@ -2,7 +2,7 @@ import Card from "./card";
 
 import { commaNum } from "../utils";
 
-export default function CountryBanner({ country }) {
+export default function CountryBanner({ country, icon }) {
   return (
     <Card>
       <div className="country">
@@ -21,8 +21,18 @@ export default function CountryBanner({ country }) {
             <div className="val">{commaNum(country.recovered)}</div>
           </div>
         </div>
+        {icon && (
+          <div className="bg">
+            <img
+              src={require(`../assets/${country.country.toLowerCase()}.svg`)}
+            />
+          </div>
+        )}
       </div>
       <style jsx>{`
+        .country {
+          position: relative;
+        }
         .title {
           font-size: 24px;
           color: #a0a0a0;
@@ -56,6 +66,11 @@ export default function CountryBanner({ country }) {
         .val {
           font-size: 16px;
           line-height: 20px;
+        }
+        .bg {
+          position: absolute;
+          right: 0;
+          bottom: 0;
         }
       `}</style>
     </Card>

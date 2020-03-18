@@ -19,10 +19,10 @@ export default function Index({ data }) {
                 <World world={data.world} />
               </div>
               <div>
-                <CountryBanner country={taiwan} />
+                <CountryBanner country={taiwan} icon={true} />
               </div>
               <div>
-                <CountryBanner country={china} />
+                <CountryBanner country={china} icon={true} />
               </div>
             </div>
             <div className="right">
@@ -32,10 +32,13 @@ export default function Index({ data }) {
           <div className="news">
             <News news={data.news} />
           </div>
+          <div className="footer">
+            © 2020 Powered by &nbsp;<a href="https://thoth.tw">thoth.tw</a>
+          </div>
         </div>
       </div>
       <style jsx global>{`
-        @import url("https://fonts.googleapis.com/css?family=Poppins:200, 300,400,500,600,700&display=swap");
+        @import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700&display=swap");
         body {
           background: #fcfcfc;
           width: 100%;
@@ -44,6 +47,13 @@ export default function Index({ data }) {
 
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
+        }
+        a {
+          color: orange;
+        }
+        a:hover {
+          color: red;
+          transition: all 0.3s;
         }
       `}</style>
       <style jsx>{`
@@ -73,6 +83,10 @@ export default function Index({ data }) {
         }
         .news {
           margin-top: 20px;
+        }
+        .footer {
+          text-align: right;
+          padding: 20px 10px;
         }
         @media (max-width: 820px) {
           .stats {
