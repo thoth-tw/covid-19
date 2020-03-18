@@ -1,3 +1,4 @@
+import Head from "next/head";
 import fetch from "isomorphic-unfetch";
 
 import World from "../components/world";
@@ -10,6 +11,26 @@ export default function Index({ data }) {
   const china = data.countries.find(c => c.country === "China");
   return (
     <>
+      <Head>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <title>Covid-19 新冠肺炎快訊</title>
+        <link rel="shortcut icon" href="https://app.thoth.tw/favicon.ico" />
+
+        <meta name="title" content="Covid-19 新冠肺炎快訊" />
+        <meta
+          name="description"
+          content="Coronavirus - 新冠肺炎相關訊息，包含了台灣、世界確診數據以及相關新聞"
+        />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://covid19.thoth.tw/" />
+        <meta property="og:title" content="Covid-19 新冠肺炎快訊" />
+        <meta
+          property="og:description"
+          content="Coronavirus - 新冠肺炎相關訊息，包含了台灣、世界確診數據以及相關新聞"
+        />
+        <meta property="og:image" content="https://app.thoth.tw/favicon.ico" />
+      </Head>
       <div className="app">
         <div className="container">
           <h1 className="header">Covid-19</h1>
@@ -33,7 +54,10 @@ export default function Index({ data }) {
             <News news={data.news} />
           </div>
           <div className="footer">
-            © 2020 Powered by &nbsp;<a href="https://thoth.tw">thoth.tw</a>
+            © 2020 Powered by &nbsp;
+            <img src="https://app.thoth.tw/favicon.ico" />
+            &nbsp;
+            <a href="https://thoth.tw">thoth.tw</a>
           </div>
         </div>
       </div>
@@ -86,8 +110,14 @@ export default function Index({ data }) {
           margin-top: 20px;
         }
         .footer {
-          text-align: right;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
           padding: 20px 10px;
+        }
+        .footer img {
+          height: 16px;
+          margin-right: 5px;
         }
         @media (max-width: 820px) {
           .stats {
