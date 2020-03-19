@@ -1,5 +1,6 @@
 node_modules
 .next
+.env
 
 api/node_module
 api/json.sqlite

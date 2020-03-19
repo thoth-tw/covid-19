@@ -9,7 +9,7 @@ export default function Rank({ countries }) {
         <div className="header">Top 10</div>
         <div>
           {countries.slice(0, 10).map((c, idx) => (
-            <div className="country">
+            <div className="country" key={c.country}>
               <div>
                 {idx + 1}. {c.country}
               </div>

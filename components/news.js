@@ -5,7 +5,7 @@ export default function News({ news }) {
     <Card>
       <div className="news">
         {news.map(n => (
-          <div className="item">
+          <div className="item" key={n.url}>
             <div className="img">
               {n.urlToImage ? (
                 <img src={n.urlToImage} />

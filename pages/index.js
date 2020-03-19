@@ -6,6 +6,8 @@ import CountryBanner from "../components/country-banner";
 import Rank from "../components/rank";
 import News from "../components/news";
 
+const GA_TRACKING_ID = process.env.GA_TRACKING_ID;
+
 export default function Index({ data }) {
   const taiwan = data.countries.find(c => c.country === "Taiwan");
   const china = data.countries.find(c => c.country === "China");
@@ -30,6 +32,24 @@ export default function Index({ data }) {
           content="Coronavirus - 新冠肺炎相關訊息，包含了台灣、世界確診數據以及相關新聞"
         />
         <meta property="og:image" content="https://app.thoth.tw/favicon.ico" />
+        {GA_TRACKING_ID && (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+            ></script>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_TRACKING_ID}');
+            `
+              }}
+            />
+          </>
+        )}
       </Head>
       <div className="app">
         <div className="container">
