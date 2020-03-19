@@ -8,15 +8,20 @@ const cors = require("cors");
 const axios = require("axios");
 const cheerio = require("cheerio");
 const db = require("quick.db");
+const moment = require("moment");
 
 require("dotenv").config();
 
+let Sentry = null;
 if (process.env.SENTRY_DSN) {
-  const Sentry = require("@sentry/node");
+  Sentry = require("@sentry/node");
   Sentry.init({
     dsn: process.env.SENTRY_DSN
   });
 }
+
+const logError = Sentry ? Sentry.captureMessage : console.error;
+const logException = Sentry ? Sentry.captureException : console.error;
 
 // get all
 async function getWorld() {
@@ -43,9 +48,27 @@ async function getWorld() {
       result.recovered = count;
     }
   });
-  result.updated = Date.now();
+
+  try {
+    const lastUpdatedText = html(".content-inner div:contains('Last updated')")
+      .text()
+      .replace("Last updated: ", "");
+    const time = moment.utc(lastUpdatedText, "MMMM-DD, YYYY, HH:mm");
+
+    if (time.isValid()) {
+      result.updated = +time;
+    } else {
+      logError(`Failed to parse last updated: ${lastUpdatedText}`);
+      result.updated = Date.now();
+    }
+    result.updated = time.isValid() ? +time : Date.now();
+  } catch (err) {
+    logException(err);
+    result.updated = Date.now();
+  }
+
   db.set("world", result);
-  console.log("Summary Updated");
+  console.log("Summary Updated", moment().format());
 
   setTimeout(getWorld, 3 * 60 * 789); // 3 mins
 }
@@ -151,7 +174,7 @@ async function getCountries() {
     }
   }
   db.set("countries", result);
-  console.log("Countries Updated");
+  console.log("Countries Updated", moment().format());
   setTimeout(getCountries, 5 * 60 * 1000); // 5 mins
 }
 
@@ -176,7 +199,7 @@ async function getNews() {
   const result = Object.values(h);
 
   db.set("news", result);
-  console.log("News Updated");
+  console.log("News Updated", moment().format());
   setTimeout(getNews, 3600 * 886); // 1 hour
 }
 

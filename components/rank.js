@@ -79,7 +79,7 @@ export default function Rank({ countries }) {
           line-height: 25px;
         }
         .label {
-          color: #a0a0a0;
+          color: #5f5f5f;
           font-size: 14px;
           font-weight: 500;
         }

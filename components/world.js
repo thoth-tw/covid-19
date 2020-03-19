@@ -1,4 +1,5 @@
 import Card from "./card";
+import moment from "moment";
 
 import { commaNum } from "../utils";
 
@@ -10,12 +11,18 @@ export default function World({ world }) {
         <div className="highlight">{commaNum(world.cases)}</div>
         <div className="side">
           <div>
-            <div className="val">{commaNum(world.deaths)}</div>
             <div className="label">死亡</div>
+            <div className="val">{commaNum(world.deaths)}</div>
           </div>
           <div>
-            <div className="val">{commaNum(world.recovered)}</div>
             <div className="label">康復</div>
+            <div className="val">{commaNum(world.recovered)}</div>
+          </div>
+          <div className="time">
+            {moment(world.updated)
+              .locale("zh-TW")
+              .fromNow()}
+            更新
           </div>
         </div>
       </div>
@@ -30,7 +37,7 @@ export default function World({ world }) {
           line-height: 60px;
         }
         .label {
-          color: #a0a0a0;
+          color: #5f5f5f;
           font-size: 16px;
           font-weight: 500;
         }
@@ -44,6 +51,14 @@ export default function World({ world }) {
         .val {
           font-size: 16px;
           line-height: 20px;
+        }
+        .side > .time {
+          margin-left: auto;
+          margin-right: 0;
+          line-height: 25px;
+          font-size: 12px;
+          align-self: flex-end;
+          color: #5f5f5f;
         }
       `}</style>
     </Card>

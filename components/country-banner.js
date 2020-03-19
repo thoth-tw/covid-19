@@ -52,7 +52,7 @@ export default function CountryBanner({ country, icon }) {
           margin-right: 5px;
         }
         .label {
-          color: #a0a0a0;
+          color: #5f5f5f;
           font-size: 16px;
           font-weight: 500;
         }
