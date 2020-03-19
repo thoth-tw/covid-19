@@ -4,6 +4,7 @@ export default function News({ news }) {
   return (
     <Card>
       <div className="news">
+        <div className="header">News</div>
         {news.map(n => (
           <div className="item" key={n.url}>
             <div className="img">
@@ -22,6 +23,12 @@ export default function News({ news }) {
         ))}
       </div>
       <style jsx>{`
+        .header {
+          padding-left: 4px;
+          font-size: 24px;
+          color: #a0a0a0;
+          margin-bottom: 15px;
+        }
         .item {
           display: flex;
           margin-bottom: 20px;
