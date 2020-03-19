@@ -104,7 +104,7 @@ async function getCountries() {
     }
     // get cases
     if (i % totalColumns === casesColIndex) {
-      let cases = cell.children[0].data || "";
+      let cases = cell.children.length != 0 ? cell.children[0].data : "";
       result[result.length - 1].cases = parseInt(
         cases.trim().replace(/,/g, "") || "0",
         10
@@ -112,7 +112,7 @@ async function getCountries() {
     }
     // get today cases
     if (i % totalColumns === todayCasesColIndex) {
-      let cases = cell.children[0].data || "";
+      let cases = cell.children.length != 0 ? cell.children[0].data : "";
       result[result.length - 1].todayCases = parseInt(
         cases.trim().replace(/,/g, "") || "0",
         10
@@ -120,7 +120,7 @@ async function getCountries() {
     }
     // get deaths
     if (i % totalColumns === deathsColIndex) {
-      let deaths = cell.children[0].data || "";
+      let deaths = cell.children.length != 0 ? cell.children[0].data : "";
       result[result.length - 1].deaths = parseInt(
         deaths.trim().replace(/,/g, "") || "0",
         10
@@ -128,7 +128,7 @@ async function getCountries() {
     }
     // get today deaths
     if (i % totalColumns === todayDeathsColIndex) {
-      let deaths = cell.children[0].data || "";
+      let deaths = cell.children.length != 0 ? cell.children[0].data : "";
       result[result.length - 1].todayDeaths = parseInt(
         deaths.trim().replace(/,/g, "") || "0",
         10
@@ -136,7 +136,7 @@ async function getCountries() {
     }
     // get cured
     if (i % totalColumns === curedColIndex) {
-      let cured = cell.children[0].data || 0;
+      let cured = cell.children.length != 0 ? cell.children[0].data : "";
       result[result.length - 1].recovered = parseInt(
         cured.trim().replace(/,/g, "") || 0,
         10
@@ -144,7 +144,7 @@ async function getCountries() {
     }
     // get critical
     if (i % totalColumns === criticalColIndex) {
-      let critical = cell.children[0].data || "";
+      let critical = cell.children.length != 0 ? cell.children[0].data : "";
       result[result.length - 1].critical = parseInt(
         critical.trim().replace(/,/g, "") || "0",
         10
