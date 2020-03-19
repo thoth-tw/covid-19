@@ -21,13 +21,9 @@ if (process.env.SENTRY_DSN) {
 // get all
 async function getWorld() {
   let response;
-  try {
-    response = await axios.get("https://www.worldometers.info/coronavirus/");
-    if (response.status !== 200) {
-      console.log("ERROR");
-    }
-  } catch (err) {
-    return null;
+  response = await axios.get("https://www.worldometers.info/coronavirus/");
+  if (response.status !== 200) {
+    console.log("ERROR");
   }
 
   // to store parsed data
@@ -57,13 +53,9 @@ async function getWorld() {
 // get countries
 async function getCountries() {
   let response;
-  try {
-    response = await axios.get("https://www.worldometers.info/coronavirus/");
-    if (response.status !== 200) {
-      console.log("Error", response.status);
-    }
-  } catch (err) {
-    return null;
+  response = await axios.get("https://www.worldometers.info/coronavirus/");
+  if (response.status !== 200) {
+    console.log("Error", response.status);
   }
 
   // to store parsed data
