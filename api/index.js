@@ -11,6 +11,13 @@ const db = require("quick.db");
 
 require("dotenv").config();
 
+if (process.env.SENTRY_DSN) {
+  const Sentry = require("@sentry/node");
+  Sentry.init({
+    dsn: process.env.SENTRY_DSN
+  });
+}
+
 // get all
 async function getWorld() {
   let response;
