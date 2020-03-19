@@ -178,7 +178,7 @@ async function getNews() {
 
   db.set("news", result);
   console.log("News Updated");
-  setTimeout(getNews, 3 * 3600 * 1000); // 3 hours
+  setTimeout(getNews, 3600 * 1000); // 1 hour
 }
 
 getWorld();
