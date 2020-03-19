@@ -51,7 +51,7 @@ async function getWorld() {
   db.set("world", result);
   console.log("Summary Updated");
 
-  setTimeout(getWorld, 5 * 60 * 1000); // 5 mins
+  setTimeout(getWorld, 3 * 60 * 789); // 3 mins
 }
 
 // get countries
@@ -185,7 +185,7 @@ async function getNews() {
 
   db.set("news", result);
   console.log("News Updated");
-  setTimeout(getNews, 3600 * 1000); // 1 hour
+  setTimeout(getNews, 3600 * 886); // 1 hour
 }
 
 getWorld();
