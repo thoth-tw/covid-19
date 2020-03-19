@@ -1,4 +1,5 @@
 import Card from "./card";
+import moment from "moment";
 
 export default function News({ news }) {
   return (
@@ -17,7 +18,12 @@ export default function News({ news }) {
             <div className="content">
               <div className="title">{n.title}</div>
               <div className="desc">{n.description}</div>
-              <a href={n.url}>Read more</a>
+              <div className="more">
+                <a href={n.url}>Read more</a>
+                <div className="time">
+                  {moment(n.publishedAt).format("YYYY-MM-DD HH:mm:ss")}
+                </div>
+              </div>
             </div>
           </div>
         ))}
@@ -56,6 +62,14 @@ export default function News({ news }) {
           margin-top: 5px;
           color: #585858;
           letter-spacing: 1px;
+        }
+        .more {
+          display: flex;
+          align-items: center;
+        }
+        .time {
+          margin-left: auto;
+          color: #5f5f5f;
         }
         @media (max-width: 500px) {
           .item {
