@@ -57,7 +57,7 @@ export default function Index({ data }) {
           <div className="stats">
             <div className="left">
               <div>
-                <World world={data.world} />
+                <World world={data.summary} />
               </div>
               <div>
                 <CountryBanner country={taiwan} icon={true} />
