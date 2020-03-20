@@ -22,13 +22,24 @@ export default function Rank({ countries }) {
               </div>
               <div className="stats">
                 <div className="num">
-                  <div className="confirmed">
-                    <span>{commaNum(c.cases)}</span>
-                    <span className="daily"> +{commaNum(c.todayCases)}</span>
+                  <span>{commaNum(c.cases)}</span>
+                  <div className="daily">
+                    <span className="today"> +{commaNum(c.todayCases)}</span>
+                    <span className="yesterday">
+                      {" "}
+                      +{commaNum(c.yesterdayCases)}
+                    </span>
                   </div>
                 </div>
                 <div className="num">
-                  <div>{commaNum(c.deaths)}</div>
+                  <span>{commaNum(c.deaths)}</span>
+                  <div className="daily">
+                    <span className="today"> +{commaNum(c.todayDeaths)}</span>
+                    <span className="yesterday">
+                      {" "}
+                      +{commaNum(c.yesterdayDeaths)}
+                    </span>
+                  </div>
                 </div>
                 <div className="num">
                   <div>{commaNum(c.recovered)}</div>
@@ -42,7 +53,7 @@ export default function Rank({ countries }) {
         .rank {
           display: flex;
           flex-direction: column;
-          height: 585px;
+          height: 624px;
         }
         .header {
           display: flex;
@@ -60,10 +71,10 @@ export default function Rank({ countries }) {
         }
         .label {
           width: 60px;
+          margin-left: 20px;
           color: #5f5f5f;
           font-size: 16px;
           font-weight: 500;
-          margin-left: 20px;
         }
         .content {
           display: flex;
@@ -72,7 +83,7 @@ export default function Rank({ countries }) {
         }
         .country {
           display: flex;
-          padding: 4px;
+          padding: 0 4px;
           align-items: center;
           border-bottom: 1px solid #f5f5f5;
           flex: 1;
@@ -84,26 +95,33 @@ export default function Rank({ countries }) {
           margin-left: auto;
           display: flex;
         }
-
         .stats .num {
           width: 60px;
           margin-left: 20px;
-          text-align: right;
+          font-size: 16px;
+          line-height: 18px;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          justify-content: center;
         }
-
         .stats > .num:first-child {
           width: auto;
         }
-        .confirmed {
-          display: flex;
-          align-items: center;
-        }
         .daily {
-          margin-left: 3px;
-          color: red;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          margin-left: 5px;
           font-size: 12px;
+          line-height: 14px;
           font-weight: 500;
-          line-height: 25px;
+        }
+        .today {
+          color: red;
+        }
+        .yesterday {
+          color: orange;
         }
       `}</style>
     </Card>

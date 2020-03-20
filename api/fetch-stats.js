@@ -7,6 +7,7 @@ const cheerio = require("cheerio");
 const db = require("quick.db");
 const moment = require("moment");
 const { logError, logException } = require("./sentry");
+const { keyBy, mergeWith } = require("lodash");
 
 async function getLoadedHtml() {
   const response = await axios.get(
@@ -59,43 +60,34 @@ async function fetchSummary() {
   setTimeout(fetchSummary, 3 * 60 * 789); // 3 mins
 }
 
-async function fetchCountries() {
-  const html = await getLoadedHtml();
-  const countriesTable = html("table#main_table_countries_today");
-  const countriesTableCells = countriesTable
+function parseCountryName(cell) {
+  let country =
+    cell.children[0].data ||
+    cell.children[0].children[0].data ||
+    // country name with link has another level
+    cell.children[0].children[0].children[0].data ||
+    cell.children[0].children[0].children[0].children[0].data ||
+    "";
+  country = country.trim();
+  if (country.length === 0) {
+    // parse with hyperlink
+    country = cell.children[0].next.children[0].data || "";
+  }
+  return country.trim() || "";
+}
+
+function parseNumber(cell) {
+  let num = cell.children.length != 0 ? cell.children[0].data : "";
+  return parseInt(num.trim().replace(/,/g, "") || "0", 10);
+}
+
+function parseCountryTable(table, colMap) {
+  const countriesTableCells = table
     .children("tbody")
     .children("tr")
     .children("td");
-  const totalColumns = 9;
-  const colMap = {
-    0: "country",
-    1: "cases",
-    2: "todayCases",
-    3: "deaths",
-    4: "todayDeaths",
-    5: "recovered",
-    7: "critica"
-  };
-  const parseCountryName = cell => {
-    let country =
-      cell.children[0].data ||
-      cell.children[0].children[0].data ||
-      // country name with link has another level
-      cell.children[0].children[0].children[0].data ||
-      cell.children[0].children[0].children[0].children[0].data ||
-      "";
-    country = country.trim();
-    if (country.length === 0) {
-      // parse with hyperlink
-      country = cell.children[0].next.children[0].data || "";
-    }
-    return country.trim() || "";
-  };
-  const parseNumber = cell => {
-    let num = cell.children.length != 0 ? cell.children[0].data : "";
-    return parseInt(num.trim().replace(/,/g, "") || "0", 10);
-  };
 
+  const totalColumns = 9;
   const countries = [];
   // minus totalColumns to skip last row, which is total
   for (let i = 0; i < countriesTableCells.length; i += totalColumns) {
@@ -107,6 +99,37 @@ async function fetchCountries() {
     }
     countries.push(country);
   }
+  return countries;
+}
+
+async function fetchCountries() {
+  const html = await getLoadedHtml();
+  const todayTable = html("table#main_table_countries_today");
+
+  const todayData = parseCountryTable(todayTable, {
+    0: "country",
+    1: "cases",
+    2: "todayCases",
+    3: "deaths",
+    4: "todayDeaths",
+    5: "recovered",
+    7: "critica"
+  });
+  const yesterdayTable = html("table#main_table_countries_yesterday");
+  const yesterdayData = parseCountryTable(yesterdayTable, {
+    0: "country",
+    2: "yesterdayCases",
+    4: "yesterdayDeaths"
+  });
+
+  const countries = Object.values(
+    mergeWith(
+      keyBy(todayData, "country"),
+      keyBy(yesterdayData, "country"),
+      (a, b) => ({ ...a, ...b })
+    )
+  );
+
   db.set("countries", countries);
   console.log("Countries Updated", moment().format());
   setTimeout(fetchCountries, 5 * 60 * 1000); // 3 mins

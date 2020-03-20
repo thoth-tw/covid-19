@@ -43,7 +43,7 @@ export default function World({ world }) {
         }
         .side {
           display: flex;
-          margin-top: 15px;
+          margin-top: 28px;
         }
         .side > * {
           margin-right: 30px;

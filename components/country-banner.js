@@ -9,7 +9,10 @@ export default function CountryBanner({ country, icon }) {
         <div className="title">{country.country}</div>
         <div className="highlight-wrap">
           <div className="highlight">{commaNum(country.cases)}</div>
-          <div> +{country.todayCases} (今日)</div>
+          <div>
+            <div className="today"> +{country.todayCases} (今日)</div>
+            <div className="yesterday"> +{country.yesterdayCases} (昨日)</div>
+          </div>
         </div>
         <div className="side">
           <div>
@@ -41,8 +44,13 @@ export default function CountryBanner({ country, icon }) {
           display: flex;
           align-items: center;
           font-size: 16px;
-          color: red;
           flex-wrap: wrap;
+        }
+        .today {
+          color: red;
+        }
+        .yesterday {
+          color: orange;
         }
         .highlight {
           color: black;
@@ -58,7 +66,7 @@ export default function CountryBanner({ country, icon }) {
         }
         .side {
           display: flex;
-          margin-top: 15px;
+          margin-top: 28px;
         }
         .side > * {
           margin-right: 30px;
