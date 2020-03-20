@@ -1,6 +1,6 @@
 # covid-19
 
-<img width="761" alt="Screen Shot 2020-03-20 at 6 26 23 PM" src="https://user-images.githubusercontent.com/3991678/77155348-4f0db500-6ad8-11ea-9206-b5b978c7d988.png">
+The data source is from [https://www.worldometers.info/coronavirus/](https://www.worldometers.info/coronavirus/), so it might not be stable.
 
 ## Installation
 ```
@@ -35,3 +35,5 @@ yarn start
 ## Deployment
 
 Should be trival. Go figure out yourself :)
+
+<img width="761" alt="Screen Shot 2020-03-20 at 6 26 23 PM" src="https://user-images.githubusercontent.com/3991678/77155348-4f0db500-6ad8-11ea-9206-b5b978c7d988.png">
