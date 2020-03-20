@@ -10,8 +10,11 @@ export default function CountryBanner({ country, icon }) {
         <div className="highlight-wrap">
           <div className="highlight">{commaNum(country.cases)}</div>
           <div>
-            <div className="today"> +{country.todayCases} (今日)</div>
-            <div className="yesterday"> +{country.yesterdayCases} (昨日)</div>
+            <div className="today"> +{commaNum(country.todayCases)} (今日)</div>
+            <div className="yesterday">
+              {" "}
+              +{commaNum(country.yesterdayCases)} (昨日)
+            </div>
           </div>
         </div>
         <div className="side">

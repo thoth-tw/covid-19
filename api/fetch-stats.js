@@ -78,7 +78,11 @@ function parseCountryName(cell) {
 
 function parseNumber(cell) {
   let num = cell.children.length != 0 ? cell.children[0].data : "";
-  return parseInt(num.trim().replace(/,/g, "") || "0", 10);
+  try {
+    return parseInt(num.trim().replace(/,/g, ""), 10);
+  } catch {
+    return null;
+  }
 }
 
 function parseCountryTable(table, colMap) {
