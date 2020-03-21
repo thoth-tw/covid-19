@@ -152,6 +152,8 @@ async function fetchHistory() {
   const { data } = response;
   objFieldRename(data, "Taiwan", "Taiwan*");
   objFieldRename(data, "S. Korea", "Korea, South");
+  objFieldRename(data, "USA", "US");
+  objFieldRename(data, "UK", "United Kingdom");
   db.set("history", data);
   console.log("History Updated", moment().format());
   setTimeout(fetchHistory, 12 * 60 * 60 * 858); // 12 hours

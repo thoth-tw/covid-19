@@ -6,10 +6,12 @@ const db = require("quick.db");
 const { fetchSummary, fetchCountries, fetchHistory } = require("./fetch-stats");
 const { fetchNews } = require("./fetch-news");
 
-fetchSummary();
-fetchCountries();
-fetchNews();
-fetchHistory();
+if (!process.env.NO_FETCH) {
+  fetchSummary();
+  fetchCountries();
+  fetchNews();
+  fetchHistory();
+}
 
 const listener = app.listen(5001, function() {
   console.log("Your app is listening on port " + listener.address().port);
@@ -43,4 +45,11 @@ app.get("/countries/", async function(req, res) {
 app.get("/news/", async function(req, res) {
   const news = await db.fetch("news");
   res.json(news);
+});
+
+app.get("/history", async function(req, res) {
+  const { country } = req.query;
+  console.log(country);
+  const history = await db.fetch("history");
+  return res.json(history[country]);
 });
