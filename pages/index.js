@@ -8,7 +8,6 @@ import Rank from "../components/rank";
 import News from "../components/news";
 
 const GA_TRACKING_ID = process.env.GA_TRACKING_ID;
-
 export default function Index({ data }) {
   const taiwan = data.countries.find(c => c.country === "Taiwan");
   const china = data.countries.find(c => c.country === "China");
@@ -167,7 +166,7 @@ export default function Index({ data }) {
 }
 
 Index.getInitialProps = async function() {
-  const res = await fetch("http://localhost:5001/");
+  const res = await fetch(process.env.API_URL);
   const data = await res.json();
 
   return { data };

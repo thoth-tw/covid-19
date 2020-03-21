@@ -3,6 +3,12 @@ import Card from "./card";
 import { commaNum } from "../utils";
 
 export default function Rank({ countries }) {
+  const showHistory = async country => {
+    const data = await (
+      await fetch(`${process.env.API_URL}history?country=${country}`)
+    ).json();
+    console.log(data);
+  };
   return (
     <Card>
       <div className="rank">
@@ -17,7 +23,7 @@ export default function Rank({ countries }) {
         <div className="content">
           {countries.slice(0, 10).map((c, idx) => (
             <div className="country" key={c.country}>
-              <div>
+              <div onClick={() => showHistory(c.country)}>
                 {idx + 1}. {c.country}
               </div>
               <div className="stats">
