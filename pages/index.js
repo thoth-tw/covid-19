@@ -1,5 +1,6 @@
 import Head from "next/head";
 import fetch from "isomorphic-unfetch";
+import moment from "moment";
 
 import World from "../components/world";
 import CountryBanner from "../components/country-banner";
@@ -53,7 +54,10 @@ export default function Index({ data }) {
       </Head>
       <div className="app">
         <div className="container">
-          <h1 className="header">Covid-19</h1>
+          <div className="header">
+            <h1>Covid-19</h1>
+            <div className="date">日期: {moment().format("YYYY-MM-DD")}</div>
+          </div>
           <div className="stats">
             <div className="left">
               <div>
@@ -110,8 +114,17 @@ export default function Index({ data }) {
           margin: 0 20px;
         }
         .header {
+          display: flex;
+          flex: 1;
+          align-items: center;
+        }
+        .header h1 {
           font-size: 32px;
           font-weight: 300;
+        }
+        .header .date {
+          margin-left: auto;
+          color: #5f5f5f;
         }
         .stats {
           display: flex;
