@@ -1,6 +1,6 @@
 # covid-19
 
-The data source is from [https://www.worldometers.info/coronavirus/](https://www.worldometers.info/coronavirus/), so it might not be stable.
+The data is crawled from [https://www.worldometers.info/coronavirus/](https://www.worldometers.info/coronavirus/), so it might not be stable.
 
 ## Installation
 ```
