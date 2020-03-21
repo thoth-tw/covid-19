@@ -3,12 +3,13 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const db = require("quick.db");
-const { fetchSummary, fetchCountries } = require("./fetch-stats");
+const { fetchSummary, fetchCountries, fetchHistory } = require("./fetch-stats");
 const { fetchNews } = require("./fetch-news");
 
 fetchSummary();
 fetchCountries();
 fetchNews();
+fetchHistory();
 
 const listener = app.listen(5001, function() {
   console.log("Your app is listening on port " + listener.address().port);

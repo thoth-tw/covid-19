@@ -136,10 +136,29 @@ async function fetchCountries() {
 
   db.set("countries", countries);
   console.log("Countries Updated", moment().format());
-  setTimeout(fetchCountries, 5 * 60 * 1000); // 3 mins
+  setTimeout(fetchCountries, 5 * 60 * 1000); // 5 mins
+}
+
+function objFieldRename(data, to, from) {
+  data[to] = data[from];
+  delete data[from];
+}
+
+async function fetchHistory() {
+  const response = await axios.get(
+    "https://pomber.github.io/covid19/timeseries.json"
+  );
+
+  const { data } = response;
+  objFieldRename(data, "Taiwan", "Taiwan*");
+  objFieldRename(data, "S. Korea", "Korea, South");
+  db.set("history", data);
+  console.log("History Updated", moment().format());
+  setTimeout(fetchHistory, 12 * 60 * 60 * 858); // 12 hours
 }
 
 module.exports = {
   fetchSummary,
-  fetchCountries
+  fetchCountries,
+  fetchHistory
 };
