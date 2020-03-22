@@ -173,7 +173,7 @@ export default function Index({ data }) {
 }
 
 Index.getInitialProps = async function() {
-  const res = await fetch(process.env.API_URL);
+  const res = await fetch(process.env.INTERNAL_API_URL);
   const data = await res.json();
 
   return { data };
