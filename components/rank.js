@@ -30,12 +30,13 @@ export default function Rank({ countries }) {
             <div className="label">確診</div>
             <div className="label">死亡</div>
             <div className="label">康復</div>
+            <div className="chart" />
           </div>
         </div>
         <div className="content">
           {countries.slice(0, 10).map((c, idx) => (
             <div className="country" key={c.country}>
-              <div onClick={() => showHistory(c.country)}>
+              <div>
                 {idx + 1}. {c.country}
               </div>
               <div className="stats">
@@ -61,6 +62,9 @@ export default function Rank({ countries }) {
                 </div>
                 <div className="num">
                   <div>{commaNum(c.recovered)}</div>
+                </div>
+                <div className="chart" onClick={() => showHistory(c.country)}>
+                  <i class="fas fa-chart-line" />
                 </div>
               </div>
             </div>
@@ -89,7 +93,7 @@ export default function Rank({ countries }) {
         }
         .label {
           width: 60px;
-          margin-left: 20px;
+          margin-left: 10px;
           color: #5f5f5f;
           font-size: 16px;
           font-weight: 500;
@@ -115,7 +119,7 @@ export default function Rank({ countries }) {
         }
         .stats .num {
           width: 60px;
-          margin-left: 20px;
+          margin-left: 10px;
           font-size: 16px;
           line-height: 18px;
           display: flex;
@@ -125,6 +129,15 @@ export default function Rank({ countries }) {
         }
         .stats > .num:first-child {
           width: auto;
+        }
+        .chart {
+          width: 20px;
+          display: flex;
+          align-items: center;
+          margin-left: 15px;
+        }
+        .stats .chart {
+          cursor: pointer;
         }
         .daily {
           display: flex;
