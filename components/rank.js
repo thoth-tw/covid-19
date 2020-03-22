@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChartLine } from "@fortawesome/free-solid-svg-icons";
+
 import Card from "./card";
 
 import { commaNum } from "../utils";
@@ -48,7 +51,7 @@ export default function Rank({ countries }) {
                   <div>{commaNum(c.recovered)}</div>
                 </div>
                 <div className="chart" onClick={() => showHistory(c.country)}>
-                  <i class="fas fa-chart-line" />
+                  <FontAwesomeIcon icon={faChartLine} />
                 </div>
               </div>
             </div>

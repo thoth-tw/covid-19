@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChartLine } from "@fortawesome/free-solid-svg-icons";
+
 import Card from "./card";
 
 import { commaNum } from "../utils";
@@ -11,7 +14,7 @@ export default function CountryBanner({ country, icon }) {
         <div className="header">
           <div className="title">{country.country}</div>
           <div className="chart" onClick={() => showHistory(country.country)}>
-            <i class="fas fa-chart-line" />
+            <FontAwesomeIcon icon={faChartLine} />
           </div>
         </div>
         <div className="highlight-wrap">

@@ -51,22 +51,6 @@ export default function Index({ data }) {
             />
           </>
         )}
-        <link
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/fontawesome.css"
-          rel="stylesheet"
-        />
-        <link
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/solid.css"
-          rel="stylesheet"
-        />
-        <script
-          defer
-          src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/solid.min.js"
-        />
-        <script
-          defer
-          src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/fontawesome.min.js"
-        />
       </Head>
       <HistoryProvider>
         <div className="app">
