@@ -49,7 +49,12 @@ const options = {
   }
 };
 
-export default function History({ history, hasHistory, closeHistory }) {
+export default function History({
+  country,
+  history,
+  hasHistory,
+  closeHistory
+}) {
   const getData = history => {
     data.datasets[0].data = history.map(d => ({ x: d.date, y: d.confirmed }));
     data.datasets[1].data = history.map(d => ({ x: d.date, y: d.deaths }));
@@ -62,28 +67,34 @@ export default function History({ history, hasHistory, closeHistory }) {
         <div className="close" onClick={closeHistory}>
           關閉
         </div>
+        <div className="country">{country}</div>
         {history && <Line data={getData(history)} options={options} />}
         <div className="footer">
           資料來源: https://github.com/CSSEGISandData/COVID-19
         </div>
       </Modal>
-      <style jsx global>{`
+      <style jsx>{`
+        .country {
+          font-size: 18px;
+          margin-left: 5px;
+          margin-bottom: 10px;
+        }
         .close {
           text-align: right;
           position: absolute;
-          right: 20px;
-          top: 20px;
+          right: 30px;
+          top: 30px;
           border: 1px solid #5f5f5f;
-          padding: 1px 5px;
+          padding: 2px 8px;
           color: #5f5f5f;
           border-radius: 5px;
-          font-size: 14px;
+          font-size: 12px;
           cursor: pointer;
         }
         .footer {
           margin-top: 20px;
           color: #a0a0a0;
-          font-size: 14px;
+          font-size: 12px;
         }
       `}</style>
     </>
