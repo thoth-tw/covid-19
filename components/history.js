@@ -1,5 +1,6 @@
 import Modal from "./modal";
 import { Line } from "react-chartjs-2";
+import moment from "moment";
 
 const lineProps = {
   fill: false,
@@ -56,8 +57,14 @@ export default function History({
   closeHistory
 }) {
   const getData = history => {
-    data.datasets[0].data = history.map(d => ({ x: d.date, y: d.confirmed }));
-    data.datasets[1].data = history.map(d => ({ x: d.date, y: d.deaths }));
+    data.datasets[0].data = history.map(d => ({
+      x: moment(d.date, "YYYY-M-D"),
+      y: d.confirmed
+    }));
+    data.datasets[1].data = history.map(d => ({
+      x: moment(d.date, "YYYY-M-D"),
+      y: d.deaths
+    }));
     return data;
   };
 
