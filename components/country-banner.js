@@ -1,12 +1,19 @@
 import Card from "./card";
 
 import { commaNum } from "../utils";
+import { useHistory } from "../providers/history";
 
 export default function CountryBanner({ country, icon }) {
+  const { showHistory } = useHistory();
   return (
     <Card>
       <div className="country">
-        <div className="title">{country.country}</div>
+        <div className="header">
+          <div className="title">{country.country}</div>
+          <div className="chart" onClick={() => showHistory(country.country)}>
+            <i class="fas fa-chart-line" />
+          </div>
+        </div>
         <div className="highlight-wrap">
           <div className="highlight">{commaNum(country.cases)}</div>
           <div>
@@ -39,9 +46,17 @@ export default function CountryBanner({ country, icon }) {
         .country {
           position: relative;
         }
+        .header {
+          display: flex;
+          align-items: center;
+        }
         .title {
           font-size: 24px;
           color: #a0a0a0;
+        }
+        .chart {
+          margin-left: auto;
+          cursor: pointer;
         }
         .highlight-wrap {
           display: flex;

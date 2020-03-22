@@ -6,6 +6,7 @@ import World from "../components/world";
 import CountryBanner from "../components/country-banner";
 import Rank from "../components/rank";
 import News from "../components/news";
+import { HistoryProvider } from "../providers/history";
 
 const GA_TRACKING_ID = process.env.GA_TRACKING_ID;
 export default function Index({ data }) {
@@ -67,39 +68,41 @@ export default function Index({ data }) {
           src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/fontawesome.min.js"
         />
       </Head>
-      <div className="app">
-        <div className="container">
-          <div className="header">
-            <h1>Covid-19</h1>
-            <div className="date">日期: {moment().format("YYYY-MM-DD")}</div>
-          </div>
-          <div className="stats">
-            <div className="left">
-              <div>
-                <World world={data.summary} />
+      <HistoryProvider>
+        <div className="app">
+          <div className="container">
+            <div className="header">
+              <h1>Covid-19</h1>
+              <div className="date">日期: {moment().format("YYYY-MM-DD")}</div>
+            </div>
+            <div className="stats">
+              <div className="left">
+                <div>
+                  <World world={data.summary} />
+                </div>
+                <div>
+                  <CountryBanner country={taiwan} icon={true} />
+                </div>
+                <div>
+                  <CountryBanner country={china} icon={true} />
+                </div>
               </div>
-              <div>
-                <CountryBanner country={taiwan} icon={true} />
-              </div>
-              <div>
-                <CountryBanner country={china} icon={true} />
+              <div className="right">
+                <Rank countries={data.countries} />
               </div>
             </div>
-            <div className="right">
-              <Rank countries={data.countries} />
+            <div className="news">
+              <News news={data.news} />
             </div>
-          </div>
-          <div className="news">
-            <News news={data.news} />
-          </div>
-          <div className="footer">
-            © 2020 Powered by &nbsp;
-            <img src="https://app.thoth.tw/favicon.ico" />
-            &nbsp;
-            <a href="https://thoth.tw">thoth.tw</a>
+            <div className="footer">
+              © 2020 Powered by &nbsp;
+              <img src="https://app.thoth.tw/favicon.ico" />
+              &nbsp;
+              <a href="https://thoth.tw">thoth.tw</a>
+            </div>
           </div>
         </div>
-      </div>
+      </HistoryProvider>
       <style jsx global>{`
         @import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700&display=swap");
         body {
