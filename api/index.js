@@ -49,7 +49,6 @@ app.get("/news/", async function(req, res) {
 
 app.get("/history", async function(req, res) {
   const { country } = req.query;
-  console.log(country);
   const history = await db.fetch("history");
   return res.json(history[country]);
 });
