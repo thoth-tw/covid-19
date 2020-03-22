@@ -1,16 +1,28 @@
 import Card from "./card";
 
 import { commaNum } from "../utils";
+import History from "./history";
 
 export default function Rank({ countries }) {
+  const [hasHistory, setHasHistory] = React.useState(false);
+  const [history, setHistory] = React.useState(null);
+  const closeHistory = () => setHasHistory(false);
   const showHistory = async country => {
     const data = await (
       await fetch(`${process.env.API_URL}history?country=${country}`)
     ).json();
-    console.log(data);
+    setHistory(data);
+    setHasHistory(true);
   };
   return (
     <Card>
+      {history && (
+        <History
+          history={history}
+          hasHistory={hasHistory}
+          closeHistory={closeHistory}
+        />
+      )}
       <div className="rank">
         <div className="header">
           <div>Top 10</div>
