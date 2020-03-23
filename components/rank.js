@@ -38,22 +38,25 @@ export default function Rank({ countries }) {
     <Card>
       <div className="rank">
         <div className="header">
-          <div
-            className={`${tab === "top10" ? "active " : ""}tab`}
-            onClick={() => setTab("top10")}
-          >
-            Top 10
-          </div>
-          <div
-            className={`${tab === "neighbors" ? "active " : ""}tab`}
-            onClick={() => setTab("neighbors")}
-          >
-            鄰近地區
+          <div className="options">
+            <div
+              className={`${tab === "top10" ? "active " : ""}tab`}
+              onClick={() => setTab("top10")}
+            >
+              Top 10
+            </div>
+            <div
+              className={`${tab === "neighbors" ? "active " : ""}tab`}
+              onClick={() => setTab("neighbors")}
+            >
+              鄰近地區
+            </div>
           </div>
           <div className="col">
-            <div className="label">確診</div>
-            <div className="label">死亡</div>
-            <div className="label">康復</div>
+            <div className="label">國家</div>
+            <div className="label label-m-right">確診</div>
+            <div className="label label-right">死亡</div>
+            <div className="label label-right">康復</div>
             <div className="chart" />
           </div>
         </div>
@@ -109,24 +112,29 @@ export default function Rank({ countries }) {
         }
         .header {
           display: flex;
+          flex-direction: column;
           padding-left: 4px;
           font-size: 24px;
           color: #a0a0a0;
-          margin-bottom: 5px;
-          align-items: center;
+        }
+        .options {
+          display: flex;
+          margin-bottom: 10px;
         }
         .col {
           display: flex;
-          margin-left: auto;
-          text-align: right;
-          margin-right: 5px;
         }
-        .label {
+        .label-m-right {
+          margin-left: auto;
+        }
+        .label-right {
           width: 60px;
           margin-left: 10px;
-          color: #5f5f5f;
+          text-align: right;
+        }
+        .label {
+          color: #a0a0a0;
           font-size: 16px;
-          font-weight: 500;
         }
         .content {
           display: flex;
@@ -193,7 +201,7 @@ export default function Rank({ countries }) {
           margin-right: 15px;
           cursor: pointer;
           transition: color 0.2s;
-          padding-bottom: 3px;
+          padding-bottom: 5px;
         }
         .tab:hover {
           color: black;

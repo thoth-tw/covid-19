@@ -37,9 +37,8 @@ export default function World({ world }) {
           line-height: 60px;
         }
         .label {
-          color: #5f5f5f;
+          color: #a0a0a0;
           font-size: 16px;
-          font-weight: 500;
         }
         .side {
           display: flex;
