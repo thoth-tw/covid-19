@@ -1,18 +1,52 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChartLine } from "@fortawesome/free-solid-svg-icons";
-
+import { orderBy } from "lodash";
 import Card from "./card";
 
 import { commaNum } from "../utils";
 import { useHistory } from "../providers/history";
 
+const neighbors = new Set([
+  "China",
+  "Japan",
+  "S. Korea",
+  "Malaysia",
+  "Thailand",
+  "Singapore",
+  "Hong Kong",
+  "Macao",
+  "Vietnam",
+  "Philippines"
+]);
+
 export default function Rank({ countries }) {
+  const [tab, setTab] = React.useState("top10");
   const { showHistory } = useHistory();
+  const getNeighbors = React.useMemo(() => {
+    return orderBy(
+      countries.filter(c => neighbors.has(c.country)),
+      "cases",
+      "desc"
+    );
+  }, [countries]);
+  const selected = tab === "neighbors" ? getNeighbors : countries.slice(0, 10);
+
   return (
     <Card>
       <div className="rank">
         <div className="header">
-          <div>Top 10</div>
+          <div
+            className={`${tab === "top10" ? "active " : ""}tab`}
+            onClick={() => setTab("top10")}
+          >
+            Top 10
+          </div>
+          <div
+            className={`${tab === "neighbors" ? "active " : ""}tab`}
+            onClick={() => setTab("neighbors")}
+          >
+            鄰近地區
+          </div>
           <div className="col">
             <div className="label">確診</div>
             <div className="label">死亡</div>
@@ -21,7 +55,7 @@ export default function Rank({ countries }) {
           </div>
         </div>
         <div className="content">
-          {countries.slice(0, 10).map((c, idx) => (
+          {selected.map((c, idx) => (
             <div className="country" key={c.country}>
               <div>
                 {idx + 1}. {c.country}
@@ -140,6 +174,20 @@ export default function Rank({ countries }) {
         }
         .yesterday {
           color: orange;
+        }
+        .tab {
+          font-size: 16px;
+          margin-right: 15px;
+          cursor: pointer;
+          transition: color 0.2s;
+          padding-bottom: 3px;
+        }
+        .tab:hover {
+          color: black;
+        }
+        .tab.active {
+          color: black;
+          border-bottom: 2px solid black;
         }
       `}</style>
     </Card>
