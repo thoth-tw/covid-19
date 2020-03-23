@@ -119,10 +119,11 @@ export default function Rank({ countries }) {
         }
         .options {
           display: flex;
-          margin-bottom: 10px;
+          margin-bottom: 15px;
         }
         .col {
           display: flex;
+          margin-bottom: 10px;
         }
         .label-m-right {
           margin-left: auto;
@@ -201,7 +202,7 @@ export default function Rank({ countries }) {
           margin-right: 15px;
           cursor: pointer;
           transition: color 0.2s;
-          padding-bottom: 5px;
+          padding-bottom: 3px;
         }
         .tab:hover {
           color: black;
