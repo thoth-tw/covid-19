@@ -47,7 +47,6 @@ export default function News({ news }) {
           width: 120px;
           height: 80px;
           object-fit: cover;
-          filter: grayscale(100%);
         }
         .content {
           margin-left: 20px;
