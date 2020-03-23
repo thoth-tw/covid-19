@@ -32,7 +32,10 @@ export default function Index({ data }) {
           property="og:description"
           content="Coronavirus - 新冠肺炎相關訊息，包含了台灣、世界確診數據以及相關新聞"
         />
-        <meta property="og:image" content="https://app.thoth.tw/favicon.ico" />
+        <meta
+          property="og:image"
+          content="https://covid19.thoth.tw/covid19.jpg"
+        />
         {GA_TRACKING_ID && (
           <>
             <script
