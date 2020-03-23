@@ -4,9 +4,10 @@ import moment from "moment";
 
 const lineProps = {
   fill: false,
-  pointBorderWidth: 1,
+  pointBorderWidth: 4,
   pointHoverRadius: 3,
-  pointHoverBorderWidth: 2,
+  pointBackgroundColor: "white",
+  pointHoverBorderWidth: 4,
   pointRadius: 1,
   pointHitRadius: 2,
   data: []
