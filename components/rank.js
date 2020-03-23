@@ -19,6 +19,9 @@ const neighbors = new Set([
   "Philippines"
 ]);
 
+// TODO: get the chart data from backend
+const no_chart_list = ["Macao", "Hong Kong"];
+
 export default function Rank({ countries }) {
   const [tab, setTab] = React.useState("top10");
   const { showHistory } = useHistory();
@@ -84,9 +87,15 @@ export default function Rank({ countries }) {
                 <div className="num">
                   <div>{commaNum(c.recovered)}</div>
                 </div>
-                <div className="chart" onClick={() => showHistory(c.country)}>
-                  <FontAwesomeIcon icon={faChartLine} />
-                </div>
+                {!no_chart_list.includes(c.country) ? (
+                  <div className="chart" onClick={() => showHistory(c.country)}>
+                    <FontAwesomeIcon icon={faChartLine} />
+                  </div>
+                ) : (
+                  <div className="chart disabled">
+                    <FontAwesomeIcon icon={faChartLine} />
+                  </div>
+                )}
               </div>
             </div>
           ))}
@@ -156,6 +165,10 @@ export default function Rank({ countries }) {
           display: flex;
           align-items: center;
           margin-left: 15px;
+        }
+        .stats .chart.disabled {
+          color: #d8d8d8;
+          cursor: initial;
         }
         .stats .chart {
           cursor: pointer;
