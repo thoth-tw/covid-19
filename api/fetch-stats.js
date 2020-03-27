@@ -7,7 +7,7 @@ const cheerio = require("cheerio");
 const db = require("quick.db");
 const moment = require("moment");
 const { logError, logException } = require("./sentry");
-const { keyBy, mergeWith } = require("lodash");
+const { keyBy, mergeWith, orderBy } = require("lodash");
 
 async function getLoadedHtml() {
   const response = await axios.get(
@@ -88,7 +88,7 @@ function parseNumber(cell) {
 function parseCountryTable(table, colMap) {
   const countriesTableCells = table
     .children("tbody")
-    .children("tr")
+    .children("tr:not(.total_row)")
     .children("td");
 
   const totalColumns = 10;
@@ -126,13 +126,15 @@ async function fetchCountries() {
     4: "yesterdayDeaths"
   });
 
-  const countries = Object.values(
+  let countries = Object.values(
     mergeWith(
       keyBy(todayData, "country"),
       keyBy(yesterdayData, "country"),
       (a, b) => ({ ...a, ...b })
     )
   );
+
+  countries = orderBy(countries, 'cases', 'desc');
 
   db.set("countries", countries);
   console.log("Countries Updated", moment().format());
