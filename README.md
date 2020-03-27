@@ -6,7 +6,10 @@
 The data is crawled from [https://www.worldometers.info/coronavirus/](https://www.worldometers.info/coronavirus/), so it might not be stable.
 
 ## Installation
-```
+```sh
+# install nodemon if you don't have it installed globally
+yarn global add nodemon # or npm install nodemon -g
+
 git clone https://github.com/huaying/covid-19
 
 cd covid-19
