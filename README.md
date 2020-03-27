@@ -32,7 +32,7 @@ yarn api:dev
 
 UI is written in next.js. To start your ui, run:
 ```
-yarn start
+yarn dev
 ```
 
 ## Deployment
