@@ -91,7 +91,10 @@ function parseCountryTable(table, colMap) {
     .children("tr:not(.total_row)")
     .children("td");
 
-  const totalColumns = 10;
+  const totalColumns = table
+    .children("thead")
+    .children("tr")
+    .children("th").length;
   const countries = [];
   // minus totalColumns to skip last row, which is total
   for (let i = 0; i < countriesTableCells.length; i += totalColumns) {
