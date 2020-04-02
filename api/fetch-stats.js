@@ -57,7 +57,6 @@ async function fetchSummary() {
   summary.updated = getLastUpdated(html);
   db.set("summary", summary);
   console.log("Summary Updated", moment().format());
-  setTimeout(fetchSummary, 3 * 60 * 789); // 3 mins
 }
 
 function parseCountryName(cell) {
@@ -137,11 +136,10 @@ async function fetchCountries() {
     )
   );
 
-  countries = orderBy(countries, 'cases', 'desc');
+  countries = orderBy(countries, "cases", "desc");
 
   db.set("countries", countries);
   console.log("Countries Updated", moment().format());
-  setTimeout(fetchCountries, 5 * 60 * 1000); // 5 mins
 }
 
 function objFieldRename(data, to, from) {
@@ -161,7 +159,6 @@ async function fetchHistory() {
   objFieldRename(data, "UK", "United Kingdom");
   db.set("history", data);
   console.log("History Updated", moment().format());
-  setTimeout(fetchHistory, 12 * 60 * 60 * 858); // 12 hours
 }
 
 module.exports = {

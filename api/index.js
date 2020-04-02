@@ -11,6 +11,10 @@ if (!process.env.NO_FETCH) {
   fetchCountries();
   fetchNews();
   fetchHistory();
+  setInterval(fetchSummary, 3 * 60 * 789); // 3 mins
+  setInterval(fetchCountries, 5 * 60 * 1000); // 5 mins
+  setInterval(fetchHistory, 12 * 60 * 60 * 858); // 12 hours
+  setInterval(fetchNews, 3600 * 886); // 1 hour
 }
 
 const listener = app.listen(5001, function() {

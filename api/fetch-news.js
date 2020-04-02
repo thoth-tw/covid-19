@@ -24,7 +24,6 @@ async function fetchNews() {
 
   db.set("news", result);
   console.log("News Updated", moment().format());
-  setTimeout(fetchNews, 3600 * 886); // 1 hour
 }
 
 module.exports = { fetchNews };
