@@ -87,7 +87,7 @@ function parseNumber(cell) {
 function parseCountryTable(table, colMap) {
   const countriesTableCells = table
     .children("tbody")
-    .children("tr:not(.total_row)")
+    .children("tr:not(.total_row):not(.total_row_world)")
     .children("td");
 
   const totalColumns = table
