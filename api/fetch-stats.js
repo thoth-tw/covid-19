@@ -90,10 +90,8 @@ function parseCountryTable(table, colMap) {
     .children("tr:not(.total_row):not(.total_row_world)")
     .children("td");
 
-  const totalColumns = table
-    .children("thead")
-    .children("tr")
-    .children("th").length;
+  const totalColumns = table.children("thead").children("tr").children("th")
+    .length;
   const countries = [];
   // minus totalColumns to skip last row, which is total
   for (let i = 0; i < countriesTableCells.length; i += totalColumns) {
@@ -113,19 +111,19 @@ async function fetchCountries() {
   const todayTable = html("table#main_table_countries_today");
 
   const todayData = parseCountryTable(todayTable, {
-    0: "country",
-    1: "cases",
-    2: "todayCases",
-    3: "deaths",
-    4: "todayDeaths",
-    5: "recovered",
-    7: "critica"
+    1: "country",
+    2: "cases",
+    3: "todayCases",
+    4: "deaths",
+    5: "todayDeaths",
+    6: "recovered",
+    8: "critica"
   });
   const yesterdayTable = html("table#main_table_countries_yesterday");
   const yesterdayData = parseCountryTable(yesterdayTable, {
-    0: "country",
-    2: "yesterdayCases",
-    4: "yesterdayDeaths"
+    1: "country",
+    3: "yesterdayCases",
+    5: "yesterdayDeaths"
   });
 
   let countries = Object.values(
